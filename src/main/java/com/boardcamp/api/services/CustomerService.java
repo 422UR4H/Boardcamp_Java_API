@@ -1,9 +1,8 @@
 package com.boardcamp.api.services;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
+import com.boardcamp.api.exceptions.CustomerNotFoundException;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.repositories.CustomerRepository;
 
@@ -18,13 +17,10 @@ public class CustomerService {
     this.customerRepository = customerRepository;
   }
 
-  public Optional<CustomerModel> findCustomerById(@NonNull Long id) {
-    Optional<CustomerModel> customer = customerRepository.findById(id);
-
-    if (!customer.isPresent()) {
-      return Optional.empty();
-    }
-    return Optional.of(customer.get());
+  public CustomerModel findCustomerById(@NonNull Long id) {
+    return customerRepository.findById(id).orElseThrow(() -> {
+      throw new CustomerNotFoundException();
+    });
   }
 
 }

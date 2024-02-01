@@ -1,7 +1,6 @@
 package com.boardcamp.api.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +33,8 @@ public class GameController {
 
   @PostMapping
   public ResponseEntity<Object> postGame(@Valid @RequestBody CreateGameDTO dto) {
-    Optional<GameModel> game = gameService.create(dto);
-
-    if (!game.isPresent()) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).body("Repeated name");
-    }
-    return ResponseEntity.status(HttpStatus.CREATED).body(game.get());
+    GameModel game = gameService.create(dto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(game);
   }
 
 }
