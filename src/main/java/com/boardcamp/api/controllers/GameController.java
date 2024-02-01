@@ -28,7 +28,7 @@ public class GameController {
 
   @GetMapping
   public List<GameModel> getAllGames() {
-    return gameService.findAllGames();
+    return gameService.findAll();
   }
 
   @PostMapping
