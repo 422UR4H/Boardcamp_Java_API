@@ -7,5 +7,5 @@ import com.boardcamp.api.models.RentalModel;
 
 @Repository
 public interface RentalRepository extends JpaRepository<RentalModel, Long> {
-
+  public int countById(Long id);
 }
