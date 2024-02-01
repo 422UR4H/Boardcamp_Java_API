@@ -21,4 +21,19 @@ public class GlobalExceptionHandler {
   public ResponseEntity<Object> handlerConflictCustomerName(ConflictCustomerCpfException exception) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
   }
+
+  @ExceptionHandler({ GameNotFoundException.class })
+  public ResponseEntity<Object> handlerGameNotFound(GameNotFoundException exception) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+  }
+
+  @ExceptionHandler({ BadRequestException.class })
+  public ResponseEntity<Object> handlerBadRequest(BadRequestException exception) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
+  }
+
+  @ExceptionHandler({ StockLimitGameRentalException.class })
+  public ResponseEntity<Object> handlerStockLimitGameRental(StockLimitGameRentalException exception) {
+    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
+  }
 }

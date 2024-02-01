@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.boardcamp.api.dtos.GameDTO;
 import com.boardcamp.api.exceptions.ConflictGameNameException;
+import com.boardcamp.api.exceptions.GameNotFoundException;
 import com.boardcamp.api.models.GameModel;
 import com.boardcamp.api.repositories.GameRepository;
+
+import lombok.NonNull;
 
 @Service
 public class GameService {
@@ -27,6 +30,12 @@ public class GameService {
       throw new ConflictGameNameException();
     }
     return gameRepository.save(new GameModel(dto));
+  }
+
+  public GameModel findById(@NonNull Long gameId) {
+    return gameRepository.findById(gameId).orElseThrow(() -> {
+      throw new GameNotFoundException();
+    });
   }
 
 }
