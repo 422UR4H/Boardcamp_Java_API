@@ -35,13 +35,13 @@ public class RentalService {
     }
     GameModel game = gameService.findById(dto.getGameId());
     CustomerModel customer = customerService.findById(dto.getCustomerId());
-    int openRentals = rentalRepository.countById(game.getId());
+    int openRentals = rentalRepository.countByGameId(game.getId());
 
     if (openRentals >= game.getStockTotal()) {
       throw new StockLimitGameRentalException();
     }
-    RentalModel model = new RentalModel(dto.getDaysRented(), game.getPricePerDay(), customer, game);
+    RentalModel rental = new RentalModel(dto.getDaysRented(), game.getPricePerDay(), customer, game);
 
-    return rentalRepository.save(model);
+    return rentalRepository.save(rental);
   }
 }

@@ -1,6 +1,8 @@
 package com.boardcamp.api.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -11,7 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -23,13 +26,13 @@ public class RentalModel {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "customerId", nullable = false)
-  private CustomerModel customer;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "rental_customer", joinColumns = @JoinColumn(name = "rental_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))
+  private List<CustomerModel> customers = new ArrayList<CustomerModel>();
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "gameId", nullable = false)
-  private GameModel game;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "rental_game", joinColumns = @JoinColumn(name = "rental_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
+  private List<GameModel> games = new ArrayList<GameModel>();
 
   @Column(nullable = false)
   private LocalDate rentDate;
@@ -48,8 +51,8 @@ public class RentalModel {
   private int delayFee;
 
   public RentalModel(int daysRented, int pricePerDay, CustomerModel customer, GameModel game) {
-    this.customer = customer;
-    this.game = game;
+    this.customers.add(customer);
+    this.games.add(game);
     this.rentDate = LocalDate.now();
     this.returnDate = null;
     this.daysRented = daysRented;
