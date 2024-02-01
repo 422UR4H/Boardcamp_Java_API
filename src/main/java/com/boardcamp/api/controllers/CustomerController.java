@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.boardcamp.api.dtos.CustomerDTO;
 import com.boardcamp.api.models.CustomerModel;
@@ -15,8 +16,6 @@ import com.boardcamp.api.services.CustomerService;
 
 import jakarta.validation.Valid;
 import lombok.NonNull;
-import org.springframework.web.bind.annotation.PutMapping;
-
 
 @RestController
 @RequestMapping("customers")
@@ -41,7 +40,7 @@ public class CustomerController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<CustomerModel> putMethodName(@PathVariable("id") Long id, @RequestBody @Valid CustomerDTO dto) {
+  public ResponseEntity<CustomerModel> putCustomer(@PathVariable("id") Long id, @RequestBody @Valid CustomerDTO dto) {
     CustomerModel customer = customerService.update(id, dto);
     return ResponseEntity.status(HttpStatus.OK).body(customer);
   }
