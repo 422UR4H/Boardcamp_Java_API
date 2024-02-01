@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCustomerDTO {
+public class CustomerDTO {
 
   @NotBlank(message = "Field name is mandatory")
   @Size(max = 255, message = "Maximum length of name is 255 characters")

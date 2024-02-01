@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.boardcamp.api.dtos.CreateGameDTO;
+import com.boardcamp.api.dtos.GameDTO;
 import com.boardcamp.api.models.GameModel;
 import com.boardcamp.api.services.GameService;
 
@@ -32,7 +32,7 @@ public class GameController {
   }
 
   @PostMapping
-  public ResponseEntity<Object> postGame(@Valid @RequestBody CreateGameDTO dto) {
+  public ResponseEntity<Object> postGame(@Valid @RequestBody GameDTO dto) {
     GameModel game = gameService.create(dto);
     return ResponseEntity.status(HttpStatus.CREATED).body(game);
   }

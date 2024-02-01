@@ -17,8 +17,8 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
   }
 
-  @ExceptionHandler({ ConflictCustomerNameException.class })
-  public ResponseEntity<Object> handlerConflictCustomerName(ConflictCustomerNameException exception) {
+  @ExceptionHandler({ ConflictCustomerCpfException.class })
+  public ResponseEntity<Object> handlerConflictCustomerName(ConflictCustomerCpfException exception) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
   }
 }

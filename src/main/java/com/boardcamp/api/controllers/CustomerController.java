@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boardcamp.api.dtos.CreateCustomerDTO;
+import com.boardcamp.api.dtos.CustomerDTO;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.services.CustomerService;
 
+import jakarta.validation.Valid;
 import lombok.NonNull;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("customers")
@@ -26,14 +29,20 @@ public class CustomerController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Object> getCustomerById(@PathVariable("id") @NonNull Long id) {
+  public ResponseEntity<CustomerModel> getCustomerById(@PathVariable("id") @NonNull Long id) {
     CustomerModel customer = customerService.findById(id);
     return ResponseEntity.status(HttpStatus.OK).body(customer);
   }
 
   @PostMapping
-  public ResponseEntity<Object> postCustomer(@RequestBody CreateCustomerDTO dto) {
+  public ResponseEntity<CustomerModel> postCustomer(@RequestBody @Valid CustomerDTO dto) {
     CustomerModel customer = customerService.create(dto);
     return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<CustomerModel> putMethodName(@PathVariable("id") Long id, @RequestBody @Valid CustomerDTO dto) {
+    CustomerModel customer = customerService.update(id, dto);
+    return ResponseEntity.status(HttpStatus.OK).body(customer);
   }
 }

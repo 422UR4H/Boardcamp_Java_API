@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateGameDTO {
+public class GameDTO {
 
   @NotBlank(message = "Field name is mandatory")
   @Size(max = 255, message = "Maximum length of name is 255 characters")

@@ -5,7 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.boardcamp.api.models.CustomerModel;
 
+import lombok.NonNull;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
-  public boolean existsByName(String name);
+
+  public boolean existsByCpf(@NonNull String id);
+
 }
