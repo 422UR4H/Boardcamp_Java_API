@@ -62,12 +62,16 @@ public class RentalModel {
     this.delayFee = 0;
   }
 
-  public void finish(int pricePerDay) {
-    this.returnDate = LocalDate.now();
+  private void calculateDelayFee(int pricePerDay) {
     long delayFee = ChronoUnit.DAYS.between(rentDate.plusDays(daysRented), returnDate) * pricePerDay;
     if (delayFee > 0) {
       this.delayFee = (int) delayFee;
     }
+  }
+
+  public void finish(int pricePerDay) {
+    this.returnDate = LocalDate.now();
+    calculateDelayFee(pricePerDay);
   }
 
 }

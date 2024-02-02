@@ -33,7 +33,7 @@ public class RentalController {
     return ResponseEntity.status(HttpStatus.OK).body(rentalService.findAll());
   }
 
-  @PostMapping()
+  @PostMapping
   public ResponseEntity<RentalModel> postRental(@RequestBody @Valid RentalDTO dto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(rentalService.create(dto));
   }
