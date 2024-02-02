@@ -1,0 +1,191 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "boardcamp",
+    "dateExported": "2024-02-02T18:07:26.362Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "312f9d6a-2c55-43c5-82f4-d08759f3eb3d",
+            "name": "games",
+            "containerId": "",
+            "created": "2024-01-31T17:56:44.949Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "452a7377-d635-4d3e-b52d-31e677667afb",
+            "name": "customer",
+            "containerId": "",
+            "created": "2024-01-31T20:02:03.915Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "11ab52e4-ad5f-4fe8-b41c-9f3adc9d73bb",
+            "name": "rentals",
+            "containerId": "",
+            "created": "2024-02-01T17:22:37.261Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "2984b372-2c1c-40c9-b31c-7914412c3c01",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "",
+            "name": "health",
+            "url": "https://boardcamp-java-api.onrender.com/health",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-01-31T17:29:15.387Z",
+            "modified": "2024-01-31T17:29:28.431Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8a4b27df-8b49-45e4-a1ab-630b56b168c1",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "312f9d6a-2c55-43c5-82f4-d08759f3eb3d",
+            "name": "find all",
+            "url": "http://localhost:8080/games",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-01-31T17:56:53.467Z",
+            "modified": "2024-01-31T17:57:15.294Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7fe199eb-bc55-4cad-86e1-1091972d49ea",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "312f9d6a-2c55-43c5-82f4-d08759f3eb3d",
+            "name": "create",
+            "url": "http://localhost:8080/games",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-01-31T18:18:39.175Z",
+            "modified": "2024-02-01T23:57:43.493Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Hunter X Hunter RPG System\",\n  \"image\": \"http://www.imagem.com.br/banco_imobiliario.jpg\",\n  \"stockTotal\": 5,\n  \"pricePerDay\": 200\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bc2d130f-0abd-473e-bf24-d5f388be6b1d",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "452a7377-d635-4d3e-b52d-31e677667afb",
+            "name": "find by id",
+            "url": "http://localhost:8080/customers/202",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-01-31T20:02:18.578Z",
+            "modified": "2024-02-01T16:41:59.272Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d64dfc2b-893f-4af0-af8f-066919b6dc04",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "452a7377-d635-4d3e-b52d-31e677667afb",
+            "name": "create",
+            "url": "http://localhost:8080/customers",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-02-01T02:47:29.640Z",
+            "modified": "2024-02-01T23:53:28.513Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"João Alfredo 2\",\n  \"cpf\": \"01234567891\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "560c05c5-212d-41a2-ae77-2c26d3b8e9b7",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "452a7377-d635-4d3e-b52d-31e677667afb",
+            "name": "update",
+            "url": "http://localhost:8080/customers/202",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-02-01T16:24:43.631Z",
+            "modified": "2024-02-01T16:42:27.015Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"João Alfredo\",\n  \"cpf\": \"01234567890\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f330b8e5-9227-4265-8fec-fb4158d8830e",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "11ab52e4-ad5f-4fe8-b41c-9f3adc9d73bb",
+            "name": "find all",
+            "url": "http://localhost:8080/rentals",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-02-01T17:22:45.065Z",
+            "modified": "2024-02-01T17:22:52.916Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7ca046c0-c835-4eb7-ac91-5704420d22d6",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "312f9d6a-2c55-43c5-82f4-d08759f3eb3d",
+            "name": "find by id",
+            "url": "http://localhost:8080/games/402",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-02-01T18:36:44.658Z",
+            "modified": "2024-02-02T17:51:04.357Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ef76dcce-44b8-449b-a172-68173a17d4bd",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "11ab52e4-ad5f-4fe8-b41c-9f3adc9d73bb",
+            "name": "create",
+            "url": "http://localhost:8080/rentals",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-02-01T19:00:02.181Z",
+            "modified": "2024-02-01T23:58:43.704Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"customerId\": 352,\n  \"gameId\": 402,\n  \"daysRented\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7b72b304-1544-4370-a946-a0e79e98bf62",
+            "colId": "538e63c3-13bb-440a-9706-a9c3d8ecb37b",
+            "containerId": "11ab52e4-ad5f-4fe8-b41c-9f3adc9d73bb",
+            "name": "finish",
+            "url": "http://localhost:8080/rentals/351/return",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2024-02-01T23:54:31.392Z",
+            "modified": "2024-02-02T00:04:23.647Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
