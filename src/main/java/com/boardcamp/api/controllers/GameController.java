@@ -28,8 +28,8 @@ public class GameController {
   }
 
   @GetMapping
-  public List<GameModel> getAllGames() {
-    return gameService.findAll();
+  public ResponseEntity<List<GameModel>> getAllGames() {
+    return ResponseEntity.status(HttpStatus.OK).body(gameService.findAll());
   }
 
   @GetMapping("/{id}")
@@ -38,7 +38,7 @@ public class GameController {
   }
 
   @PostMapping
-  public ResponseEntity<Object> postGame(@Valid @RequestBody GameDTO dto) {
+  public ResponseEntity<GameModel> postGame(@Valid @RequestBody GameDTO dto) {
     GameModel game = gameService.create(dto);
     return ResponseEntity.status(HttpStatus.CREATED).body(game);
   }
