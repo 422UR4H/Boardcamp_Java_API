@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler({ BadRequestException.class })
-  public ResponseEntity<BadRequestException> handlerBadRequest(BadRequestException exception) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
+  public ResponseEntity<String> handlerBadRequest(BadRequestException exception) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
   }
 
   @ExceptionHandler({ CustomerNotFoundException.class })
