@@ -28,7 +28,7 @@ DB_USERNAME=postgres # database username
 DB_PASSWORD=postgres # database password
 ```
 
-A local database or an deployed database can be used.
+A local database or a deployed database can be used.
 
 Finally, run in your favorite IDE:
 
@@ -97,10 +97,11 @@ For this project, I used:
 - Java (version 17.0.9);
 - Spring Boot (version 3.2.2);
 - Maven;
-- Lombok;
-- SonarLint;
+- JUnit;
 - Hibernate;
 - Spring Data JPA;
+- SonarLint;
+- Lombok;
 
 ## Tests
 
@@ -110,6 +111,6 @@ The entire route structure is ready in a thunderClient collection (thunder-colle
 
 ### Automatized
 
-A local database or an deployed database can be used.
+A local database is recomended, but a deployed database can also be used.
 
 Is comming...
