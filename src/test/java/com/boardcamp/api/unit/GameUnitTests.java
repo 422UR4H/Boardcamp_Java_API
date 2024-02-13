@@ -31,16 +31,38 @@ public class GameUnitTests {
 
   @Test
   public void givenRepeatedGameName_whenCreating_thenThrowsError() {
+    // given
     GameDTO dto = GameBuilder.create();
     doReturn(true).when(gameRepository).existsByName(any());
 
+    // when
     ConflictGameNameException exception = assertThrows(
         ConflictGameNameException.class,
         () -> gameService.create(dto));
 
+    // then
     assertNotNull(exception);
     assertEquals("Game's name already exists", exception.getMessage());
     verify(gameRepository, times(0)).save(new GameModel(dto));
+  }
+
+  @Test
+  public void givenValidGame_whenCreating_thenCreatesGame() {
+    // given
+    GameDTO dto = GameBuilder.create();
+    GameModel game = new GameModel(dto);
+
+    doReturn(false).when(gameRepository).existsByName(any());
+    doReturn(game).when(gameRepository).save(game);
+
+    // when
+    GameModel result = gameService.create(dto);
+
+    // then
+    assertNotNull(result);
+    assertEquals(game, result);
+    verify(gameRepository, times(1)).existsByName(any());
+    verify(gameRepository, times(1)).save(new GameModel(dto));
   }
 
 }
