@@ -154,4 +154,26 @@ public class RentalUnitTests {
     verify(rentalRepository, times(0)).save(any());
   }
 
+  @SuppressWarnings("null")
+  @Test
+  public void givenNonFinishedRental_whenFinishing_thenFinishes() {
+    // given
+    final Long ID = 1L;
+    RentalDTO dto = RentalBuilder.create();
+    CustomerModel customer = new CustomerModel(CustomerBuilder.create());
+    GameModel game = new GameModel(GameBuilder.create());
+    RentalModel rental = new RentalModel(dto.getDaysRented(), game.getPricePerDay(), customer, game);
+
+    doReturn(Optional.of(rental)).when(rentalRepository).findById(anyLong());
+    doReturn(rental).when(rentalRepository).save(any());
+
+    // when
+    RentalModel result = rentalService.finish(ID);
+
+    // then
+    assertNotNull(result);
+    assertEquals(rental, result);
+    verify(rentalRepository, times(1)).save(any());
+  }
+
 }
