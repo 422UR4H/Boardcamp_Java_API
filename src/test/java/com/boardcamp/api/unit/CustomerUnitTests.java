@@ -2,11 +2,14 @@ package com.boardcamp.api.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,7 +39,7 @@ public class CustomerUnitTests {
     doReturn(true).when(customerRepository).existsByCpf(any());
 
     // when
-    ConflictCustomerCpfException exception = assertThrowsExactly(
+    ConflictCustomerCpfException exception = assertThrows(
         ConflictCustomerCpfException.class,
         () -> customerService.create(dto));
 
@@ -63,6 +66,26 @@ public class CustomerUnitTests {
     assertEquals(customer, result);
     verify(customerRepository, times(1)).existsByCpf(any());
     verify(customerRepository, times(1)).save(new CustomerModel(dto));
+  }
+
+  @Test
+  public void givenExistingCpf_whenUpdating_thenThrowsException() {
+    // given
+    CustomerModel customer = new CustomerModel(CustomerBuilder.create());
+    CustomerDTO dto = CustomerBuilder.create();
+
+    doReturn(Optional.of(customer)).when(customerRepository).findById(anyLong());
+    doReturn(true).when(customerRepository).existsByCpf(any());
+
+    // when
+    ConflictCustomerCpfException exception = assertThrows(
+        ConflictCustomerCpfException.class,
+        () -> customerService.update(1L, dto));
+
+    // then
+    assertNotNull(exception);
+    assertEquals("Customer's CPF already exists", exception.getMessage());
+    verify(customerRepository, times(0)).save(new CustomerModel(dto));
   }
 
 }
