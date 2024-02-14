@@ -70,6 +70,28 @@ public class CustomerIntegrationTests {
     assertEquals(1, customerRepository.count());
   }
 
+  @Test
+  public void givenNonExistingCustomer_whenUpdating_thenThrowsError() {
+    // given
+    CustomerDTO dto = CustomerBuilder.create();
+
+    @SuppressWarnings("null")
+    HttpEntity<CustomerDTO> body = new HttpEntity<>(dto);
+
+    // when
+    ResponseEntity<String> response = restTemplate.exchange(
+        "/customers/{id}",
+        HttpMethod.PUT,
+        body,
+        String.class,
+        1L);
+
+    // then
+    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    assertEquals("Customer not found", response.getBody());
+    assertEquals(0, customerRepository.count());
+  }
+
   @SuppressWarnings("null")
   @Test
   public void givenValidCustomer_whenUpdating_thenUpdatesCustomer() {
