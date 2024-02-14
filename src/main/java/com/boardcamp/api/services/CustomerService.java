@@ -34,16 +34,16 @@ public class CustomerService {
   }
 
   public CustomerModel update(@NonNull Long id, @Valid CustomerDTO dto) {
-    if (!customerRepository.existsById(id)) {
+    CustomerModel customer = customerRepository.findById(id).orElseThrow(() -> {
       throw new CustomerNotFoundException();
-    }
-    if (!customerRepository.existsByCpf(dto.getCpf())) {
+    });
+    if (customer.getCpf() != dto.getCpf() && customerRepository.existsByCpf(dto.getCpf())) {
       throw new ConflictCustomerCpfException();
     }
-    CustomerModel customer = new CustomerModel(dto);
+    CustomerModel newCustomer = new CustomerModel(dto);
 
-    customer.setId(id);
-    return customerRepository.save(customer);
+    newCustomer.setId(id);
+    return customerRepository.save(newCustomer);
   }
 
 }
