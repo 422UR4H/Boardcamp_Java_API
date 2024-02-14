@@ -46,4 +46,23 @@ public class CustomerUnitTests {
     verify(customerRepository, times(0)).save(new CustomerModel(dto));
   }
 
+  @Test
+  public void givenValidCustomer_whenCreating_thenCreatesCustomer() {
+    // given
+    CustomerDTO dto = CustomerBuilder.create();
+    CustomerModel customer = new CustomerModel(dto);
+
+    doReturn(false).when(customerRepository).existsByCpf(any());
+    doReturn(customer).when(customerRepository).save(customer);
+
+    // when
+    CustomerModel result = customerService.create(dto);
+
+    // then
+    assertNotNull(result);
+    assertEquals(customer, result);
+    verify(customerRepository, times(1)).existsByCpf(any());
+    verify(customerRepository, times(1)).save(new CustomerModel(dto));
+  }
+
 }
