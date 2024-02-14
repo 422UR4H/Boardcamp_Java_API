@@ -44,6 +44,28 @@ public class RentalIntegrationTests {
   @BeforeEach
   public void cleanUpDatabase() {
     rentalRepository.deleteAll();
+    gameRepository.deleteAll();
+    customerRepository.deleteAll();
+  }
+
+  @Test
+  public void givenNonExistingCustomer_whenCreating_thenThrowsError() {
+    // given
+    GameModel game = GameFactory.create(gameRepository);
+    RentalDTO dto = RentalBuilder.create(1L, game.getId());
+
+    @SuppressWarnings("null")
+    HttpEntity<RentalDTO> body = new HttpEntity<>(dto);
+
+    // when
+    ResponseEntity<String> response = restTemplate.exchange(
+        "/rentals", HttpMethod.POST, body, String.class);
+
+    // then
+    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    assertEquals(1, gameRepository.count());
+    assertEquals(0, rentalRepository.count());
+    assertEquals(0, customerRepository.count());
   }
 
   @Test
