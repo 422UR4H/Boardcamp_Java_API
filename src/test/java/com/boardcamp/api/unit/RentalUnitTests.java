@@ -11,13 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.boardcamp.api.builders.CustomerBuilder;
-import com.boardcamp.api.builders.GameBuilder;
 import com.boardcamp.api.dtos.RentalDTO;
 import com.boardcamp.api.exceptions.BadRequestException;
-import com.boardcamp.api.models.CustomerModel;
-import com.boardcamp.api.models.GameModel;
-import com.boardcamp.api.models.RentalModel;
 import com.boardcamp.api.repositories.RentalRepository;
 import com.boardcamp.api.services.RentalService;
 
@@ -30,12 +25,10 @@ public class RentalUnitTests {
   @Mock
   private RentalRepository rentalRepository;
 
+  @SuppressWarnings("null")
   @Test
   public void givendNullGameId_whenCreating_thenThrowsException() {
     // given
-    int pricePerDay = 1;
-    CustomerModel customer = new CustomerModel(CustomerBuilder.create());
-    GameModel game = new GameModel(GameBuilder.create());
     RentalDTO dto = new RentalDTO();
     dto.setDaysRented(0);
     dto.setCustomerId(1L);
@@ -47,8 +40,7 @@ public class RentalUnitTests {
 
     // then
     assertNotNull(exception);
-    verify(rentalRepository, times(0))
-        .save(new RentalModel(dto.getDaysRented(), pricePerDay, customer, game));
+    verify(rentalRepository, times(0)).save(any());
   }
 
   @SuppressWarnings("null")
