@@ -109,4 +109,26 @@ public class CustomerUnitTests {
     verify(customerRepository, times(1)).save(newCustomer);
   }
 
+  @Test
+  public void givenValidCustomer_whenUpdating_thenUpdatedCustomer() {
+    // given
+    final Long ID = 1L;
+    CustomerModel customer = new CustomerModel(CustomerBuilder.create());
+    CustomerDTO dto = CustomerBuilder.create(customer.getCpf());
+    CustomerModel newCustomer = new CustomerModel(dto);
+
+    newCustomer.setId(ID);
+    doReturn(Optional.of(customer)).when(customerRepository).findById(anyLong());
+    doReturn(newCustomer).when(customerRepository).save(newCustomer);
+
+    // when
+    CustomerModel result = customerService.update(ID, dto);
+
+    // then
+    assertNotNull(result);
+    assertEquals(newCustomer, result);
+    verify(customerRepository, times(1)).save(newCustomer);
+    verify(customerRepository, times(0)).existsByCpf(any());
+  }
+
 }
