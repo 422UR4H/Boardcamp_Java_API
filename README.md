@@ -88,7 +88,9 @@ And the DTOs of the entities are in `src/main/java/com/boardcamp/api/dtos`.
 
 - PUT `/rentals/:id/return`: To finalize a rental by id that has no yet been finalized and calculate delay fee (if exists)
 
-If the structure is not respected, a 400 error is returned.
+#### Note: If the structure is not respected, a 400 error is returned with a String body message.
+
+<br />
 
 # Technologies used
 
