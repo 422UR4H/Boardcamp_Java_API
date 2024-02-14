@@ -13,6 +13,7 @@ import com.boardcamp.api.builders.RentalBuilder;
 import com.boardcamp.api.dtos.RentalDTO;
 import com.boardcamp.api.factories.CustomerFactory;
 import com.boardcamp.api.factories.GameFactory;
+// import com.boardcamp.api.factories.RentalFactory;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.models.GameModel;
 import com.boardcamp.api.models.RentalModel;
@@ -33,7 +34,7 @@ public class RentalIntegrationTests {
   private TestRestTemplate restTemplate;
 
   @Autowired
-  private RentalRepository rentalRepository;
+  protected RentalRepository rentalRepository;
 
   @Autowired
   private GameRepository gameRepository;
@@ -104,6 +105,42 @@ public class RentalIntegrationTests {
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     assertEquals(customer.getId(), response.getBody().getCustomer().getId());
     assertEquals(game.getId(), response.getBody().getGame().getId());
+    assertEquals(1, rentalRepository.count());
+  }
+
+  @Test
+  @SuppressWarnings("null")
+  public void givenNonFinishedRental_whenFinishing_thenFinishes() {
+    // given
+    // RentalModel rental = RentalFactory.create(rentalRepository,
+    // customerRepository, gameRepository);
+
+    CustomerModel customer = CustomerFactory.create(customerRepository);
+    GameModel game = GameFactory.create(gameRepository);
+    RentalDTO dto = RentalBuilder.create(customer.getId(), game.getId());
+    RentalModel rentalModel = new RentalModel(
+        1,
+        game.getPricePerDay(),
+        customer,
+        game);
+
+    RentalModel rental = rentalRepository.save(rentalModel);
+    // RentalDTO dto = RentalBuilder.create(rental.getCustomer().getId(),
+    // rental.getGame().getId());
+    HttpEntity<RentalDTO> body = new HttpEntity<>(dto);
+
+    // when
+    ResponseEntity<RentalModel> response = restTemplate.exchange(
+        "/rentals/{id}/return",
+        HttpMethod.POST,
+        body,
+        RentalModel.class,
+        rental.getId());
+
+    // then
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    // assertEquals(customer.getId(), response.getBody().getCustomer().getId());
+    // assertEquals(game.getId(), response.getBody().getGame().getId());
     assertEquals(1, rentalRepository.count());
   }
 
