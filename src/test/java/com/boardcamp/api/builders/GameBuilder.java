@@ -13,4 +13,12 @@ public class GameBuilder {
         faker.number().numberBetween(1, Integer.MAX_VALUE),
         faker.number().numberBetween(1, Integer.MAX_VALUE));
   }
+
+  public static GameDTO create(String name) {
+    return new GameDTO(
+        name,
+        faker.avatar().image(),
+        faker.number().numberBetween(1, Integer.MAX_VALUE),
+        faker.number().numberBetween(1, Integer.MAX_VALUE));
+  }
 }
