@@ -9,6 +9,9 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,6 +22,7 @@ import com.boardcamp.api.builders.GameBuilder;
 import com.boardcamp.api.builders.RentalBuilder;
 import com.boardcamp.api.dtos.RentalDTO;
 import com.boardcamp.api.exceptions.BadRequestException;
+import com.boardcamp.api.exceptions.RentalFinishedException;
 import com.boardcamp.api.exceptions.StockLimitGameRentalException;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.models.GameModel;
@@ -128,6 +132,26 @@ public class RentalUnitTests {
     assertNotNull(result);
     assertEquals(rental, result);
     verify(rentalRepository, times(1)).save(any());
+  }
+
+  @SuppressWarnings("null")
+  @Test
+  public void givenAlreadyFinishedRental_whenFinishing_thenThrowsException() {
+    // given
+    RentalModel rental = new RentalModel();
+
+    rental.setReturnDate(LocalDate.now());
+    doReturn(Optional.of(rental)).when(rentalRepository).findById(anyLong());
+
+    // when
+    RentalFinishedException exception = assertThrows(
+        RentalFinishedException.class,
+        () -> rentalService.finish(1L));
+
+    // then
+    assertNotNull(exception);
+    assertEquals("Rental already finished", exception.getMessage());
+    verify(rentalRepository, times(0)).save(any());
   }
 
 }
