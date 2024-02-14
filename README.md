@@ -113,4 +113,12 @@ The entire route structure is ready in a thunderClient collection (thunder-colle
 
 A local database is recomended, but a deployed database can also be used.
 
-Is comming...
+Create a .env.test file following the .env.example file and insert the test database url to run the automated tests.
+
+```bash
+DB_URL=jdbc:postgresql://localhost:5432/db_test # local (or remote) database link
+DB_USERNAME=postgres # database username
+DB_PASSWORD=postgres # database password
+```
+
+Finally, run the tests in your favorite IDE!
