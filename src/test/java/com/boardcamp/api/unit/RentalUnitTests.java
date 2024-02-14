@@ -76,7 +76,7 @@ public class RentalUnitTests {
 
   @SuppressWarnings("null")
   @Test
-  public void givendNonExistingGameId_whenCreating_thenThrowsException() {
+  public void givendStockLimitGameRental_whenCreating_thenThrowsException() {
     // given
     final Long ID = 1L;
     RentalDTO dto = RentalBuilder.create();
