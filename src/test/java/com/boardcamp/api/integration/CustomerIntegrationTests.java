@@ -51,4 +51,20 @@ public class CustomerIntegrationTests {
     assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     assertEquals(1, customerRepository.count());
   }
+
+  @Test
+  public void givenValidCustomer_whenCreating_thenCreatesCustomer() {
+    // given
+    CustomerDTO dto = CustomerBuilder.create();
+
+    @SuppressWarnings("null")
+    HttpEntity<CustomerDTO> body = new HttpEntity<>(dto);
+
+    // when
+    ResponseEntity<CustomerModel> response = restTemplate.exchange(
+        "/customers", HttpMethod.POST, body, CustomerModel.class);
+
+    assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    assertEquals(1, customerRepository.count());
+  }
 }
