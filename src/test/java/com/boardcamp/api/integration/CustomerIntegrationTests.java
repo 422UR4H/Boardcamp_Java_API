@@ -107,6 +107,7 @@ public class CustomerIntegrationTests {
         body,
         CustomerModel.class, customer.getId());
 
+    // then
     assertEquals(customer.getId(), response.getBody().getId());
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertEquals(1, customerRepository.count());
