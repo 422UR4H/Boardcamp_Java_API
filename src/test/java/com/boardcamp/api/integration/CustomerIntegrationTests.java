@@ -47,6 +47,7 @@ public class CustomerIntegrationTests {
     ResponseEntity<String> response = restTemplate.exchange(
         "/customers", HttpMethod.POST, body, String.class);
 
+    // then
     assertEquals("Customer's CPF already exists", response.getBody());
     assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     assertEquals(1, customerRepository.count());
@@ -64,6 +65,7 @@ public class CustomerIntegrationTests {
     ResponseEntity<CustomerModel> response = restTemplate.exchange(
         "/customers", HttpMethod.POST, body, CustomerModel.class);
 
+    // then
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     assertEquals(1, customerRepository.count());
   }
