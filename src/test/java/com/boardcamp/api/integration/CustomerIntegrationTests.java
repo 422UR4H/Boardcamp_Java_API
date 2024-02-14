@@ -69,4 +69,24 @@ public class CustomerIntegrationTests {
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     assertEquals(1, customerRepository.count());
   }
+
+  @SuppressWarnings("null")
+  @Test
+  public void givenValidCustomer_whenUpdating_thenUpdatesCustomer() {
+    // given
+    CustomerModel customer = CustomerFactory.create(customerRepository);
+    CustomerDTO dto = CustomerBuilder.create();
+    HttpEntity<CustomerDTO> body = new HttpEntity<>(dto);
+
+    // when
+    ResponseEntity<CustomerModel> response = restTemplate.exchange(
+        "/customers/{id}",
+        HttpMethod.PUT,
+        body,
+        CustomerModel.class, customer.getId());
+
+    assertEquals(customer.getId(), response.getBody().getId());
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals(1, customerRepository.count());
+  }
 }
