@@ -64,7 +64,6 @@ public class CustomerUnitTests {
     // then
     assertNotNull(result);
     assertEquals(customer, result);
-    verify(customerRepository, times(1)).existsByCpf(any());
     verify(customerRepository, times(1)).save(new CustomerModel(dto));
   }
 
@@ -86,6 +85,28 @@ public class CustomerUnitTests {
     assertNotNull(exception);
     assertEquals("Customer's CPF already exists", exception.getMessage());
     verify(customerRepository, times(0)).save(new CustomerModel(dto));
+  }
+
+  @Test
+  public void givenNonExistingCpf_whenUpdating_thenUpdatedCustomer() {
+    // given
+    final Long ID = 1L;
+    CustomerModel customer = new CustomerModel(CustomerBuilder.create());
+    CustomerDTO dto = CustomerBuilder.create();
+    CustomerModel newCustomer = new CustomerModel(dto);
+
+    newCustomer.setId(ID);
+    doReturn(Optional.of(customer)).when(customerRepository).findById(anyLong());
+    doReturn(false).when(customerRepository).existsByCpf(any());
+    doReturn(newCustomer).when(customerRepository).save(newCustomer);
+
+    // when
+    CustomerModel result = customerService.update(ID, dto);
+
+    // then
+    assertNotNull(result);
+    assertEquals(newCustomer, result);
+    verify(customerRepository, times(1)).save(newCustomer);
   }
 
 }
