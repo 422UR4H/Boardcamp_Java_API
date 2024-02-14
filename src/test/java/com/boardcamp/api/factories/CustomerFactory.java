@@ -7,14 +7,14 @@ import com.boardcamp.api.repositories.CustomerRepository;
 
 public class CustomerFactory {
 
-  public static CustomerModel create(CustomerRepository CustomerRepository) {
+  public static CustomerModel create(CustomerRepository customerRepository) {
     CustomerDTO dto = CustomerBuilder.create();
-    return CustomerRepository.save(new CustomerModel(dto));
+    return customerRepository.save(new CustomerModel(dto));
   }
 
-  public static CustomerModel create(CustomerRepository CustomerRepository, String cpf) {
+  public static CustomerModel create(CustomerRepository customerRepository, String cpf) {
     CustomerDTO dto = CustomerBuilder.create(cpf);
-    return CustomerRepository.save(new CustomerModel(dto));
+    return customerRepository.save(new CustomerModel(dto));
   }
 
 }
