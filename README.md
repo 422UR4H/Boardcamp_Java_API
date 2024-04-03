@@ -8,7 +8,9 @@ This is my first small complete Web Service built in Java, with automated tests 
 
 With this challenge, I complete the minimum required to begin dedicating myself almost exclusively to rebuilding the big project: [GxG Batalhas: Integrado](https://github.com/422UR4H/GxG-Batalhas-Integrado)
 
-For the even bigger project: [Hunter X Hunter RPG Environment](https://github.com/422UR4H/HxH_RPG_Environment_Java_API)
+For the even bigger project: [Hunter X Hunter RPG Environment](https://github.com/422UR4H/HxH_RPG_Environment_AspNet_API)
+
+Note: the [HxH_RPG_Environment_Java](https://github.com/422UR4H/HxH_RPG_Environment_Java_API) version has been discontinued and the project continues in C# with ASP.NET, in the link above!
 
 ## Demo
 
